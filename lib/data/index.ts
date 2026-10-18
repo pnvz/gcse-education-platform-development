@@ -11,12 +11,18 @@ export const QUESTIONS: Record<SubjectId, Question[]> = {
   maths: mathsQuestions,
   physics: physicsQuestions,
   chemistry: chemistryQuestions,
+  biology: [],
+  history: [],
+  geography: [],
 }
 
 export const CARDS: Record<SubjectId, Flashcard[]> = {
   maths: mathsCards,
   physics: physicsCards,
   chemistry: chemistryCards,
+  biology: [],
+  history: [],
+  geography: [],
 }
 
 export const ALL_CARDS: Flashcard[] = Object.values(CARDS).flat()

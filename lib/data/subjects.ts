@@ -1,4 +1,4 @@
-export type SubjectId = 'maths' | 'physics' | 'chemistry'
+export type SubjectId = 'maths' | 'physics' | 'chemistry' | 'biology' | 'history' | 'geography'
 
 export interface SubjectMeta {
   id: SubjectId
@@ -7,6 +7,8 @@ export interface SubjectMeta {
   tagline: string
   colorVar: string
   topics: string[]
+  /** Structure exists but no content has been added yet. */
+  comingSoon?: boolean
 }
 
 export const SUBJECTS: Record<SubjectId, SubjectMeta> = {
@@ -58,6 +60,45 @@ export const SUBJECTS: Record<SubjectId, SubjectMeta> = {
       'Rates & Equilibrium',
       'Organic Chemistry',
       'Inorganic & Analysis',
+    ],
+  },
+  biology: {
+    id: 'biology',
+    name: 'Biology',
+    code: '4BI1',
+    tagline: 'Living organisms, genetics and ecology',
+    colorVar: 'var(--biology)',
+    comingSoon: true,
+    topics: [
+      'Nature & Variety of Living Organisms',
+      'Structure & Functions in Living Organisms',
+      'Reproduction & Inheritance',
+      'Ecology & the Environment',
+      'Use of Biological Resources',
+    ],
+  },
+  history: {
+    id: 'history',
+    name: 'History',
+    code: '4HI1',
+    tagline: 'Depth studies, breadth studies and investigations',
+    colorVar: 'var(--history)',
+    comingSoon: true,
+    topics: ['Depth Studies', 'Breadth Studies', 'Historical Investigations'],
+  },
+  geography: {
+    id: 'geography',
+    name: 'Geography',
+    code: '4GE1',
+    tagline: 'Physical and human environments',
+    colorVar: 'var(--geography)',
+    comingSoon: true,
+    topics: [
+      'River Environments',
+      'Coastal Environments',
+      'Hazardous Environments',
+      'Economic Activity & Energy',
+      'Challenges Facing the Planet',
     ],
   },
 }

@@ -18,7 +18,7 @@ export function DeckGrid({
       {SUBJECT_IDS.map((id, i) => {
         const s = SUBJECTS[id]
         const st = stats[id]
-        const pct = (n: number) => `${(n / st.total) * 100}%`
+        const pct = (n: number) => `${(n / Math.max(st.total, 1)) * 100}%`
         const topicCounts = topicCountsBySubject[id]
 
         return (
@@ -57,17 +57,28 @@ export function DeckGrid({
               <div><dt className="inline">New </dt><dd className="inline font-medium text-foreground">{st.fresh}</dd></div>
             </dl>
 
-            <Link
-              href={`/flashcards/${id}`}
-              className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-xl font-medium text-background transition hover:brightness-110"
-              style={{ background: s.colorVar }}
-            >
-              Study {s.name}
-              <ArrowRight className="size-4" aria-hidden />
-            </Link>
+            {s.comingSoon ? (
+              <p className="mt-6 inline-flex h-11 items-center justify-center rounded-xl border border-dashed border-border text-sm text-muted-foreground">
+                Coming soon
+              </p>
+            ) : (
+              <Link
+                href={`/flashcards/${id}`}
+                className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-xl font-medium text-background transition hover:brightness-110"
+                style={{ background: s.colorVar }}
+              >
+                Study {s.name}
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            )}
 
             <div className="mt-6 flex flex-wrap gap-1.5">
-              {s.topics.map((t) => (
+              {s.topics.map((t) =>
+                s.comingSoon ? (
+                  <span key={t} className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground/60">
+                    {t}
+                  </span>
+                ) : (
                 <Link
                   key={t}
                   href={`/flashcards/${id}?topic=${encodeURIComponent(t)}`}
@@ -76,7 +87,8 @@ export function DeckGrid({
                 >
                   {t} <span className="opacity-60">{topicCounts[t] ?? 0}</span>
                 </Link>
-              ))}
+                ),
+              )}
             </div>
           </motion.section>
         )

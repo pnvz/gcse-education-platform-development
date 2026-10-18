@@ -41,6 +41,9 @@
   --color-maths: var(--maths);
   --color-physics: var(--physics);
   --color-chemistry: var(--chemistry);
+  --color-biology: var(--biology);
+  --color-history: var(--history);
+  --color-geography: var(--geography);
   --color-success: var(--success);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -93,6 +96,9 @@
   --maths: oklch(0.74 0.19 290);
   --physics: oklch(0.82 0.13 205);
   --chemistry: oklch(0.86 0.19 140);
+  --biology: oklch(0.78 0.17 175);
+  --history: oklch(0.8 0.13 70);
+  --geography: oklch(0.76 0.16 30);
   --success: oklch(0.8 0.17 155);
 }
 

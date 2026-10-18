@@ -1,5 +1,5 @@
 import { CARDS, PAPERS } from '@/lib/data'
-import { SUBJECT_IDS, type Flashcard, type SubjectId } from '@/lib/data/subjects'
+import { SUBJECT_IDS, SUBJECTS, type Flashcard, type SubjectId } from '@/lib/data/subjects'
 import { db } from '@/lib/db'
 import {
   flashcardProgress,
@@ -128,7 +128,7 @@ export async function getDashboard(userId: string) {
     return { day: dayKey(d), label: d.toLocaleDateString('en-GB', { weekday: 'short' }), count: activity.get(dayKey(d)) ?? 0 }
   })
 
-  const subjectStats = SUBJECT_IDS.map((subject) => {
+  const subjectStats = SUBJECT_IDS.filter((s) => !SUBJECTS[s].comingSoon).map((subject) => {
     const p = progress.filter((x) => x.subject === subject)
     const a = attempts.filter((x) => x.subject === subject)
     const topics = new Map<string, { correct: number; total: number }>()

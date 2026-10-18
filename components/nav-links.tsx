@@ -8,6 +8,7 @@ const LINKS = [
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/papers', label: 'Past papers' },
   { href: '/questions', label: 'Question bank' },
+  { href: '/exams', label: 'Mock exams' },
   { href: '/flashcards', label: 'Flashcards' },
 ]
 

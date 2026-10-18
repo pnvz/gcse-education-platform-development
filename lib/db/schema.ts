@@ -2,6 +2,7 @@ import {
   boolean,
   doublePrecision,
   integer,
+  jsonb,
   pgTable,
   serial,
   text,
@@ -124,3 +125,19 @@ export const paperProgress = pgTable(
   },
   (t) => [uniqueIndex('paper_progress_user_paper').on(t.userId, t.paperKey)],
 )
+
+export const examAttempts = pgTable('exam_attempts', {
+  id: serial('id').primaryKey(),
+  userId: text('userId').notNull(),
+  subject: text('subject').notNull(),
+  title: text('title').notNull(),
+  topics: jsonb('topics').$type<string[]>().notNull(),
+  timeLimitSec: integer('timeLimitSec').notNull(),
+  timeTakenSec: integer('timeTakenSec').notNull(),
+  totalMarks: integer('totalMarks').notNull(),
+  awardedMarks: integer('awardedMarks').notNull(),
+  percentage: integer('percentage').notNull(),
+  estimatedGrade: text('estimatedGrade'),
+  details: jsonb('details').notNull(),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+})

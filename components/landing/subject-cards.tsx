@@ -1,11 +1,18 @@
 'use client'
 
-import { ArrowUpRight, Atom, FlaskConical, Sigma } from 'lucide-react'
+import { ArrowUpRight, Atom, Dna, FlaskConical, Globe, Landmark, Sigma } from 'lucide-react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { SUBJECT_IDS, SUBJECTS, type SubjectId } from '@/lib/data/subjects'
 
-const ICONS = { maths: Sigma, physics: Atom, chemistry: FlaskConical } as const
+const ICONS = {
+  maths: Sigma,
+  physics: Atom,
+  chemistry: FlaskConical,
+  biology: Dna,
+  history: Landmark,
+  geography: Globe,
+} as const
 
 export function SubjectCards({
   counts,
@@ -27,8 +34,11 @@ export function SubjectCards({
             whileHover={{ y: -8 }}
           >
             <Link
-              href={`/flashcards/${id}`}
-              className="group relative block overflow-hidden rounded-3xl border border-border bg-card p-7 transition-colors hover:border-[color:var(--c)]"
+              href={s.comingSoon ? '/papers' : `/flashcards/${id}`}
+              aria-disabled={s.comingSoon || undefined}
+              tabIndex={s.comingSoon ? -1 : undefined}
+              onClick={s.comingSoon ? (e) => e.preventDefault() : undefined}
+              className={`group relative block overflow-hidden rounded-3xl border border-border bg-card p-7 transition-colors hover:border-[color:var(--c)] ${s.comingSoon ? 'cursor-default opacity-70' : ''}`}
               style={{ '--c': s.colorVar } as React.CSSProperties}
             >
               <div
@@ -64,11 +74,13 @@ export function SubjectCards({
                   className="mt-6 inline-flex items-center gap-1 text-sm font-medium"
                   style={{ color: s.colorVar }}
                 >
-                  Start a deck
-                  <ArrowUpRight
-                    className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                    aria-hidden
-                  />
+                  {s.comingSoon ? 'Coming soon' : 'Start a deck'}
+                  {!s.comingSoon && (
+                    <ArrowUpRight
+                      className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      aria-hidden
+                    />
+                  )}
                 </span>
               </div>
             </Link>

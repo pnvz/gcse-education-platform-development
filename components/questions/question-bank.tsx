@@ -84,7 +84,9 @@ export function QuestionBank({
                 <div className="font-display text-lg font-semibold" style={{ color: subject === id ? SUBJECTS[id].colorVar : undefined }}>
                   {SUBJECTS[id].name}
                 </div>
-                <div className="text-sm text-muted-foreground">{questions[id].length} questions</div>
+                <div className="text-sm text-muted-foreground">
+                  {SUBJECTS[id].comingSoon ? 'Coming soon' : `${questions[id].length} questions`}
+                </div>
               </button>
             ))}
           </div>

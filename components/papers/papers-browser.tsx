@@ -140,6 +140,12 @@ export function PapersBrowser({
         ))}
       </div>
 
+      {groups.length === 0 && (
+        <p className="mt-8 rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
+          {SUBJECTS[subject].name} past papers are coming soon.
+        </p>
+      )}
+
       {!signedIn && (
         <p className="mt-5 text-sm text-muted-foreground">
           <Link href="/sign-in" className="font-medium text-primary underline-offset-4 hover:underline">
