@@ -1,47 +1,63 @@
-export default function Page() {
+import Link from 'next/link'
+import { Features, SpacedTimeline } from '@/components/landing/features'
+import { Hero } from '@/components/landing/hero'
+import { SubjectCards } from '@/components/landing/subject-cards'
+import { Reveal } from '@/components/reveal'
+import { buttonVariants } from '@/components/ui/button'
+import { ALL_CARDS, ALL_QUESTIONS, CARDS, PAPERS, QUESTIONS } from '@/lib/data'
+import { SUBJECT_IDS, type SubjectId } from '@/lib/data/subjects'
+
+export default function HomePage() {
+  const counts = Object.fromEntries(
+    SUBJECT_IDS.map((id) => [
+      id,
+      {
+        papers: PAPERS.filter((p) => p.subject === id).length,
+        questions: QUESTIONS[id].length,
+        cards: CARDS[id].length,
+      },
+    ]),
+  ) as Record<SubjectId, { papers: number; questions: number; cards: number }>
+
   return (
-    <main
-      style={{
-        colorScheme: 'light dark',
-        position: 'relative',
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'light-dark(#fff, #000)',
-        color: 'light-dark(#000, #fff)',
-      }}
-    >
-      <svg
-        aria-hidden="true"
-        style={{ width: 80, height: 80 }}
-        width={80}
-        height={80}
-        fill="none"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.5"
-      >
-        <path
-          d="M14.2 14.2H17V6.9375C17 4.76288 15.2371 3 13.0625 3H5.8V5.8M14.2 14.2V7.79063L7.79062 14.2H14.2ZM14.2 14.2V17H6.9375C4.76288 17 3 15.2371 3 13.0625V5.8H5.8M5.8 5.8V12.2313L12.2313 5.8H5.8Z"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <p
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: 'calc(50% + 56px)',
-          transform: 'translateX(-50%)',
-          whiteSpace: 'nowrap',
-          fontSize: '14px',
-          fontWeight: 500,
-          color: 'light-dark(#71717a, #a1a1aa)',
-        }}
-      >
-        Your v0 generation will show here.
-      </p>
+    <main>
+      <Hero stats={{ papers: PAPERS.length, questions: ALL_QUESTIONS.length, cards: ALL_CARDS.length }} />
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <Reveal>
+          <h2 className="max-w-xl text-balance font-display text-3xl font-semibold sm:text-4xl">
+            Three subjects, one place to revise
+          </h2>
+        </Reveal>
+        <div className="mt-10">
+          <SubjectCards counts={counts} />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <Features />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <SpacedTimeline />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-24 pt-8 text-center sm:px-6">
+        <Reveal>
+          <h2 className="text-balance font-display text-3xl font-semibold sm:text-5xl">
+            Your next exam starts with today&apos;s review
+          </h2>
+          <div className="mt-8 flex justify-center">
+            <Link href="/sign-up" className={buttonVariants({ size: 'lg', className: 'h-12 px-7 text-base' })}>
+              Create a free account
+            </Link>
+          </div>
+        </Reveal>
+      </section>
+
+      <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
+        Past paper PDFs are hosted by physicsandmathstutor.com. Edexcel and iGCSE are trademarks of Pearson.
+      </footer>
     </main>
   )
 }
